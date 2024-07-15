@@ -1,0 +1,35 @@
+
+.field {
+    padding-top: 5px;
+    padding-bottom: 5px
+}
+
+.p-f-1{
+    padding: 0.5rem 1rem;
+    font-size:1.2rem
+}
+.profile_edit {
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    min-width: 260px;
+}
+
+
+@media (max-width: 992px) {
+    .profile_edit {
+        left: 50%;
+    }
+}
+
+@media (max-width: 500px) {
+   .fc .fc-toolbar {
+       display: flex !important;
+       justify-content: space-between !important;
+       align-items: center !important;
+       flex-wrap: wrap !important;
+       align-content: space-around !important;
+       flex-direction: column-reverse !important;
+   }
+}

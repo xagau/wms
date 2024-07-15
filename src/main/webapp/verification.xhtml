@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/no-auth-template.xhtml">
+             
+    <ui:define name="title">AGUA.SAT Preferences / Settings</ui:define>
+
+    <ui:param name="viewname" value="VERIFICATION" />
+    
+    <ui:define name="content">
+        <div class="grid">
+            <div class="col">
+                <div class="card">
+                    <h4>Verification Required</h4>
+                    <p>An email has been sent to the account provided. Please login to the site from the link provided in your email. This page will forward to login in 5 seconds. This will activate your account and give you full access to your dashboard account. This is where you will be able to use your your AGUA.SAT system.</p>
+                    <script>
+                        setTimeout("window.location.href = './login.xhtml'", 5000)
+                    </script>
+                    <hr/>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

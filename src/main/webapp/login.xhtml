@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" >
+<h:head>
+
+
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="shortcut icon" href="#{request.contextPath}/resources/diamond-layout/images/favicon.ico"
+            type="image/x-icon">
+        </link>
+        <link rel="icon" href="#{request.contextPath}/resources/diamond-layout/images/favicon.ico" type="image/x-icon">
+        </link>
+    </f:facet>
+    <title>AGUA.SAT - Login</title>
+    <style>
+        
+    </style>
+
+</h:head>
+
+<h:body styleClass="login-body #{guestPreferences.inputStyleClass}">
+    <div class="login-wrapper">
+        <div class="login-panel">
+            <a href="/index.html">
+                <p:graphicImage name="images/#{guestPreferences.scheme eq 'light' ? 'logo-dark.png' : 'logo-white.png'}"
+                styleClass="logo" library="diamond-layout" />
+            </a>
+            
+            <div class="login-form">
+                <h2>Good to see you again</h2>
+                <p>Don't have an account?</p>
+
+                <div class="ui-messages ui-widget" id="error_message">
+                    <div class="ui-messages-error ui-corner-all">
+                        <a href="#" class="ui-messages-close" onclick="HideErroralert()" aria-label="Close">
+                            <span class="ui-icon ui-icon-close"></span>
+                        </a>
+                        <ul>
+                            <li role="alert" aria-atomic="true" style="display: block;">
+                                <span class="ui-messages-error-detail">${error}</span>
+                                <a href='mailto:support@genpen.ai'>support@genpen.ai</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <a href="./signup.xhtml">Sign-up</a>
+
+                <form method="POST" action="./LoginServlet">
+                    <div class="ui-field">
+                        <div class="field col-12">
+                            <label id="emailLabel" for="email" value="Email:" />
+                        </div>
+                        <div class="field  col-12">
+                            <input class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all " aria-required="true"  id="email" name="email" autocomplete="email" placeholder="Email" required="required"/>
+                            <input type="hidden" id="challenge" name="challenge" value="y4kkAAAAAMR_fnrX36iEE"/>
+                        </div>
+                        <div class="field col-12">
+                            <label id="passwordLabel" for="password" value="Password:" />
+                        </div>
+                        <div class="field col-12">
+                            <input class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all " aria-required="true" id="password" name="password" type="password" placeholder="Password" required="required"/>
+                        </div>
+                        <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdNy4kkAAAAAMR_fnrX36iDsWGvqvPVsq9Azgn2"></script>
+                        <script>
+                        grecaptcha.enterprise.ready(function() {
+                            grecaptcha.enterprise.execute('6LdNy4kkAAAAAMR_fnrX36iDsWGvqvPVsq9Azgn2', {action: './LoginServlet'}).then(function(token) {
+
+                            });
+                        });
+                        </script>
+
+                        <div class="field col-12">
+                            <input value="Sign-in"   type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only p-f-1" id="submit-button" />
+                        </div>
+                    </div>
+                </form>
+
+        </div>
+            <p>Forgot Password? <a href="./forgot_password.xhtml">Click here</a> to reset your password.</p> 
+        </div>
+        <div class=" login-image">
+            <div class="card login-image-content">
+                <h1>AGUA.SAT</h1>
+                <h3>The AGUA AI Platform is a comprehensive, data-driven solution <br />
+                    designed to detect, monitor, and track water pollutants, facilitating<br />
+                    the effective management and prevention of water pollution. This user manual<br />
+                    provides detailed instructions for administrators, organizations, and<br />
+                    end users to utilize the platform's features and capabilities<br />
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        let error_text = String("${error}");
+        if(error_text == undefined || error_text == '') {
+            document.getElementById('error_message').style.display = "none";
+        }
+        else {
+            document.getElementById('error_message').style.display = 'block';
+        }
+        function HideErroralert() {
+            document.getElementById('error_message').style.display = 'none';
+        }
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <h:outputStylesheet id="layout-scheme" name="css/layout-#{guestPreferences.scheme}.css" library="diamond-layout" />
+    <h:outputStylesheet name="css/primeicons.css" library="diamond-layout" />
+
+    <h:outputStylesheet name="css/style.css" library="diamond-layout" />
+
+</h:body>
+
+</ui:composition>

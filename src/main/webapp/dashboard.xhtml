@@ -1,0 +1,227 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">AGUA.SAT Dashboard</ui:define>
+
+    <ui:param name="viewname" value="DASHBOARD" />
+    
+    <ui:define name="head">
+        <h:outputScript name="js/chart.js" library="demo" />
+        <script type="text/javascript">
+            $(function() {
+                var dataSet = [
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0],
+                    [0, 0, 0, 0, 0, 0, 0]
+                ];
+
+                $('#order-tabs-container > .order-tab').on('click', function() {
+                    var el = $(this);
+                    el.addClass('order-tab-active').siblings('.order-tab-active').removeClass('order-tab-active');
+                    ordersChart.data.datasets[0].data = dataSet[parseInt(el.data('index'))];
+                    ordersChart.data.datasets[0].label = el.data('label');
+                    ordersChart.data.datasets[0].borderColor = el.data('stroke');
+                    ordersChart.data.datasets[0].backgroundColor = el.data('fill');
+                    ordersChart.update();
+                });
+
+                var ordersChart = new Chart(document.getElementById("order-chart").getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: [#{dashboardView.timeService.formattedTimeArray}],
+                        datasets: [{
+                            label: 'Open Events',
+                            data: [0, 0, 0, 0, 0, 0, 0],
+                            backgroundColor: [
+                                'rgba(100, 181, 246, 0.2)'
+                            ],
+                            borderColor: [
+                                '#64B5F6'
+                            ],
+                            borderWidth: 3,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: true
+                        },
+                        responsive: true,
+                        hover: {
+                            mode: 'index'
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    min: 0,
+                                    max: 100
+                                }
+                            }]
+                        }
+                    }
+                });
+ 
+            });
+        </script>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form  id="form">
+            <div class="layout-dashboard">
+                <div class="grid">
+                    <div class="col-12 md:col-6 xl:col-3">
+                        <div class="card no-gutter widget-overview-box widget-overview-box-1">
+                            <span class="overview-icon">
+                                <i class="pi pi-money-bill"></i>
+                            </span>
+                            <span class="overview-title">Potential Pollution Warnings</span>
+                            <div class="grid overview-detail">
+                                <div class="col-12">
+                                    <div class="overview-number">#{dashboardView.usage.computeCredits}</div>
+                                    <div class="overview-subtext">Total Count</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 xl:col-3">
+                        <div class="card no-gutter widget-overview-box widget-overview-box-2">
+                            <span class="overview-icon">
+                                <i class="pi pi-code"></i>
+                            </span>
+                            <span class="overview-title">Investigated Events</span>
+                            <div class="grid overview-detail">
+                                <div class="col-12">
+                                    <div class="overview-number">#{dashboardView.builds.size()}</div>
+                                    <div class="overview-subtext">Total Count</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 xl:col-3 ">
+                        <div class="card no-gutter widget-overview-box widget-overview-box-3">
+                            <span class="overview-icon">
+                                <i class="pi pi-cloud-upload"></i>
+                            </span>
+                            <span class="overview-title">Total Water Quality (avg)</span>
+                            <div class="grid overview-detail">
+                                <div class="col">
+                                    <div class="overview-number">#{dashboardView.deployments.size()}</div>
+                                    <div class="overview-subtext">Total Count</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 xl:col-3">
+                        <div class="card no-gutter widget-overview-box widget-overview-box-4">
+                            <span class="overview-icon">
+                                <i class="pi pi-folder-open"></i>
+                            </span>
+                            <span class="overview-title">On-going Investigations</span>
+                            <div class="grid overview-detail">
+                                <div class="col-12">
+                                    <div class="overview-number">#{dashboardView.projects.size()}</div>
+                                    <div class="overview-subtext">on-going count</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 xl:col-6">
+                        <div class="card no-gutter">
+                            <div class="card-header">
+                                <h4>Account Usage Detail</h4>
+                                <p:commandButton id="orders-button" type="button" icon="pi pi-search" styleClass="ui-button-secondary ui-button-flat" />
+                                <p:menu trigger="orders-button" overlay="true" my="right top" at="right bottom">
+                                    <p:submenu label="Shipments">
+                                        <p:menuitem value="Tracker" url="#" icon="pi pi-compass" />
+                                        <p:menuitem value="Map" url="#" icon="pi pi-map-marker" />
+                                        <p:menuitem value="Manage" url="#" icon="pi pi-pencil" />
+                                    </p:submenu>
+                                </p:menu>
+                            </div>
+                           
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div id="order-tabs-container" class="grid order-tabs">
+                                        <div class="order-tab order-tab-refunded col-6 md:col-3" data-label="Open Events" data-index="0" data-stroke="#B2DFDB" data-fill="rgba(224, 242, 241, 0.5)">
+                                            <i class="pi pi-prime"></i>
+                                            <span class="order-label">Potential Events</span>
+                                            <i class="stat-detail-icon icon-arrow-right-circle"></i>
+                                        </div>                                        
+                                        <div class="order-tab order-tab-completed col-6 md:col-3" data-label="Total Water Quality" data-index="1" data-stroke="#C5CAE9" data-fill="rgba(121, 134, 203, 0.2)">
+                                            <i class="pi pi-chart-line"></i>
+                                            <span class="order-label">Total Water Quality</span>
+                                            <i class="stat-detail-icon icon-arrow-right-circle"></i>
+                                        </div>
+                                        <div class="order-tab order-tab-refunded col-6 md:col-3" data-label="On-going Events" data-index="2" data-stroke="#B2DFDB" data-fill="rgba(224, 242, 241, 0.5)">
+                                            <i class="pi pi-search"></i>
+                                            <span class="order-label">On-going Events</span>
+                                            <i class="stat-detail-icon icon-arrow-right-circle"></i>
+                                        </div>
+                                        <div class="order-tab order-tab-new col-6 md:col-3" data-label="Closed Events" data-index="3" data-stroke="#BBDEFB" data-fill="rgba(100, 181, 246, 0.2)">
+                                            <i class="pi pi-chart-pie"></i>
+                                            <span class="order-label">Closed Events</span>
+                                            <i class="stat-detail-icon icon-arrow-right-circle"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="overview-chart">
+                                        <canvas id="order-chart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 xl:col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Security Center</h4> 
+                            </div>
+
+                            <p:dataTable id="Action_id" var="action" value="#{dashboardView.actionLists}" reflow="true" paginatorPosition="bottom"
+                                rowKey="#{action.id}" paginator="true" rows="5" >
+
+                                <p:column headerText="Date" sortBy="#{action.actionDate}">
+                                    <h:outputText value="#{action.actionDate}">
+                                        <f:convertDateTime  type="date" pattern="yyyy-MM-dd" />
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Device" sortBy="#{action.device}">
+                                    <h:outputText value="#{action.device}" />
+                                </p:column>
+
+                                <p:column headerText="Ip" sortBy="#{action.userIpAddress}">
+                                    <h:outputText value="#{action.userIpAddress}">
+                                        <f:convertNumber currencySymbol="$" type="currency" />
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Time" sortBy="#{action.actionDate}">
+                                    <h:outputText value="#{action.actionDate}">
+                                        <f:convertDateTime  type="date" pattern="HH:mm" />
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Action" sortBy="#{action.action}">
+                                    <span class="product-badge status-#{action.action.toLowerCase()}">#{action.action}</span>
+                                </p:column> 
+
+                                <p:column style="width: 3.5rem">
+                                    <p:commandButton icon="pi pi-search" />
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

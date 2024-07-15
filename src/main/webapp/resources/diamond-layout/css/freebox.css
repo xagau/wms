@@ -1,0 +1,54 @@
+.layout-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sandbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+
+.sandbox .content .card{
+  margin-bottom: 14px;
+  margin-top: 12px;
+  word-break: break-all;
+  overflow: auto;
+}
+.sandbox .content {
+  flex: 1;
+  display: flex;
+  max-height: calc(100vh - 21px);
+}
+.sandbox .prompt {
+  width: 80%;
+}
+
+@media screen and (max-width: 568px) {
+    #send-button {
+        width: 80%;
+        margin: 5px;
+    }
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 5px solid #ccc;
+    border-top-color: #666;
+    animation: spin 1s infinite linear;
+}
+
+.loader.stopped {
+    animation-play-state: paused;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="shortcut icon" href="#{request.contextPath}/resources/diamond-layout/images/favicon.ico"
+              type="image/x-icon">
+        </link>
+        <link rel="icon" href="#{request.contextPath}/resources/diamond-layout/images/favicon.ico" type="image/x-icon">
+        </link>
+
+    </f:facet>
+    <title>AGUA.SAT - Logout</title>
+
+</h:head>
+
+<h:body styleClass="logout-body #{guestPreferences.inputStyleClass}">
+    <div class="logout-wrapper">
+        <div class="logout-panel">
+            <p:graphicImage  name="images/#{guestPreferences.scheme eq 'light' ? 'logo-dark.png' : 'logo-white.png'}"
+                            styleClass="logo" library="diamond-layout" />
+            <div class="logout-form">
+                <h2>Are you sure?</h2>
+                <h2>You want to Logout?</h2>
+
+                <div class="flex logout_btns">
+                    <a href="/dashboard.xhtml">
+                        <p:button  value="Cancel" icon="pi pi-home" style="padding: 0.5rem 1rem;font-size:1.2rem" styleClass="rounded-button " />
+                    </a>
+                    <a href="index.html">
+                        <p:button  value="Logout" icon="pi pi-sign-out" iconPos="right" style="padding: 0.5rem 1rem;font-size:1.2rem" styleClass="rounded-button ui-button-secondary"/>
+                    </a>
+                </div>
+            </div>
+            <!-- <p>A problem? <a href="#">Click here</a> and let us help you.</p> -->
+        </div>
+    </div>
+
+    <h:outputStylesheet id="layout-scheme" name="css/layout-#{guestPreferences.scheme}.css" library="diamond-layout" />
+    <h:outputStylesheet name="css/primeicons.css" library="diamond-layout" />
+    <h:outputStylesheet name="css/logout.css" library="diamond-layout" />
+</h:body>
+
+</html>

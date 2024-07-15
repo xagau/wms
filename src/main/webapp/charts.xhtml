@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Reports</ui:define>
+
+    <ui:param name="viewname" value="REPORTS" />
+
+    <ui:define name="content">
+        <div class="grid ui-fluid">
+            <div class="col-12 lg:col-4">
+                <div class="card">
+                    <h5>Lead</h5>
+                    <p:lineChart model="#{chartDemoView.lineModel}" style="width: 100%; height: 500px;"/>
+                </div>
+            </div>
+
+            <div class="col-12 lg:col-4">
+                <div class="card">
+                    <h5>Arsenic</h5>
+                    <p:barChart model="#{chartDemoView.barModel}" style="width: 100%; height: 500px;"/>
+                </div>
+            </div>
+
+
+            <div class="col-12 lg:col-4">
+                <div class="card">
+                    <h5>Mercury</h5>
+                    <p:barChart model="#{chartDemoView.mixedModel}" style="width: 100%; height: 500px;"/>
+                </div>
+            </div>
+
+            <div class="col-12 lg:col-4">
+                <div class="card">
+                    <h5>PCBs: Polychlorinated biphenyls (PCBs)</h5>
+                    <p:pieChart model="#{chartDemoView.pieModel}" style="width: 100%; height: 500px;"/>
+                </div>
+            </div>
+
+            <div class="col-12 lg:col-4">
+                <div class="card">
+                    <h5>Pharmaceuticals</h5>
+                    <p:donutChart model="#{chartDemoView.donutModel}" style="width: 100%; height: 500px;"/>
+                </div>
+            </div>
+
+            <div class="col-12 lg:col-4">
+                <div class="card">
+                    <h5>Chlorine</h5>
+                    <p:polarAreaChart model="#{chartDemoView.polarAreaModel}" style="width: 100%; height: 500px;"/>
+                </div>
+            </div>
+
+            <div class="col-12 lg:col-4">
+                <div class="card">
+                    <h5>Pesticides</h5>
+                    <p:radarChart model="#{chartDemoView.radarModel}" style="width: 100%; height: 500px;"/>
+                </div>
+            </div>
+
+            <div class="col-12 lg:col-4">
+                <div class="card">
+                    <h5>Nitrate and phosphate</h5>
+                    <p:bubbleChart model="#{chartDemoView.bubbleModel}" style="width: 100%; height: 500px;"/>
+                </div>
+            </div>
+
+            <div class="col-12 lg:col-4">
+                <div class="card">
+                    <h5>Microplastics</h5>
+                    <p:scatterChart model="#{chartDemoView.scatterModel}" style="width: 100%; height: 500px;"/>
+                </div>
+            </div>
+
+        </div>
+
+    </ui:define>
+
+</ui:composition>

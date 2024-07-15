@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:d="http://primefaces.org/diamond">
+
+    <div class="layout-sidebar">
+        <a class="logo" href="/">
+            <p:graphicImage id="app-logo" styleClass="logo-image"
+                            name="images/#{guestPreferences.logoColor eq 'white' ? 'logo-white.png' : 'logo-dark.png'}"
+                            library="diamond-layout"/>
+            <span class="app-name">AGUA.SAT</span>
+        </a >
+
+        <div class="layout-menu-container">
+            <h:form id="sidebar-form">
+                <d:menu widgetVar="diamondMenuWidget">
+                    <p:submenu id="m_homepage" label="Favorites" icon="pi pi-fw pi-home">
+                        <p:menuitem id="m_dashboard" value="Dashboard" icon="pi pi-fw pi-home" outcome="/dashboard"/>
+                    </p:submenu>
+                    <p:separator/>
+                    <p:submenu id="m_components" label="Components" icon="pi pi-fw pi-star-fill">
+                        <p:menuitem id="m_profile" value="Profile" icon="pi pi-fw pi-user" outcome="/profile"/>
+                        <p:menuitem id="m_charts" value="Reports" icon="pi pi-fw pi-chart-bar" outcome="/charts"/>
+                        <p:menuitem id="m_calendar" value="Calendar" icon="pi pi-fw pi-calendar " outcome="/calendar"/>
+                        <p:menuitem id="m_sat" value="Satallite" icon="pi pi-fw pi-globe" outcome="/sat"/>
+                        <p:menuitem id="m_logout" value="Log out" icon="pi pi-fw pi-sign-out" outcome="/logout"/>
+                    </p:submenu>
+                    <p:separator/>
+                </d:menu>
+            </h:form>
+        </div>
+    </div>
+</ui:composition>

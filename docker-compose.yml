@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  genpen:
+    build: .
+    image: genpen
+    stdin_open: true
+    tty: true
+    command: mvn -Dmaven.test.skip=true -Dtomee-embedded-plugin.http=80 package war:war org.apache.tomee.maven:tomee-embedded-maven-plugin:7.0.5:run
+    ports:
+      - 80:80
+    volumes:
+      - ./:/app:delegated
+    environment:
+      DB_HOST: 208.92.232.92
+      DB_PORT: 3307
+      DB_NAME: 'genpendb'
+      DB_USER: 'root'
+      DB_PASSWORD: 'GenPenAI!'
+
+#   db:
+#     image: mysql:8.0
+#     container_name: mysql-db
+#     environment:
+#       MYSQL_ROOT_PASSWORD: 'Lodestar20300615!'
+#       MYSQL_DATABASE: 'genpendb'
+#       MYSQL_USER: 'root'
+#       MYSQL_PASSWORD: 'Lodestar20300615!'
+#       # GenPenAI!
+#     ports:
+#       - "3306"
+#     volumes:
+#       - db-data:/var/lib/mysql
+#       - ./initdb.sql:/docker-entrypoint-initdb.d/init.sql
+# volumes:
+#   db-data:

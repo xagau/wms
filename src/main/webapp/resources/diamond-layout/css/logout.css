@@ -1,0 +1,64 @@
+.logout-body {
+    background: #f8f9fa;
+    color: #495057;
+}
+.logout-body .logout-wrapper {
+    display: -ms-flexbox;
+    display: flex;
+    height: 100vh;
+}
+
+.logout-body .logout-wrapper .logout-panel .logo {
+    width: 50px;
+    position: absolute;
+    left: 50px;
+    top: 50px;
+}
+
+.logout-body .logout-wrapper .logout-form > p > a {
+    color: #1976D2;
+    cursor: pointer;
+}
+.logout-body .logout-wrapper .logout-form > input {
+    width: 85%;
+    max-width: 310px;
+    margin-bottom: 20px;
+}
+.logout-body .logout-wrapper  .logout-form > button {
+    width: 85%;
+    max-width: 310px;
+}
+.logout-body .logout-wrapper  p {
+    font-weight: 600;
+    margin: 0;
+    color: #6c757d;
+}
+.logout-body .logout-wrapper .logout-form p > a {
+    color: #1976D2;
+}
+.logout-body .logout-wrapper .login-image .login-image-content > h1 {
+    font-size: 60px;
+    margin: 0;
+    color: #ffffff;
+}
+.logout-body .logout-wrapper .login-image .login-image-content h3 {
+    font-size: 24px;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 600;
+    margin-top: 32px;
+}
+.logout_btns button{
+    margin: 50px 50px 0 50px;
+}
+
+@media (max-width: 500px) {
+    .logout_btns button {
+        margin: 50px 10px 0 10px;
+    }
+}
+@media (max-width: 400px) {
+    .logout_btns button {
+        margin: 50px 0px 0 10px;
+    }
+}

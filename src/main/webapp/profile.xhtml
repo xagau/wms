@@ -1,0 +1,227 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Profile</ui:define>
+
+    <ui:param name="viewname" value="PROFILE" />
+    <ui:define name="head">
+        <script>
+            $(document).ready(function () {
+                $(".profile_edit").hide();
+                $(".edit_btn").click(function () {
+                    $(".profile_edit").show();
+                });
+                $(".Change_cancel").click(function () {
+                    $(".profile_edit").hide();
+                });
+            });
+
+        </script>
+        <style>
+            .icon_profile {
+                font-size: 1.5rem !important;
+                margin: 1.5rem 1rem
+            }
+        </style>
+
+    </ui:define>
+    <ui:define name="content">
+
+        <div>
+            <p:tabView>
+                <p:tab title="Profile">
+                    <p:commandButton type="button" value="Edit Profile" styleClass="mb-5 edit_btn" />
+                    <div class="grid">
+                        <div id="show_profile" class="md:flex card col mr-2">
+                            <div class="col-12 md:col-5 mr-7">
+                                <img class="col-12 border-round-3xl border-3" styleClass="shadow-2"
+                                    src="resources/demo/images/avatar/ " alt="profile" />
+                            </div>
+                            <div class="sm:col-12 md:col-6">
+
+                                <div class="flex">
+                                    <h1 class="p-text-bold text-5xl">#{profileView.firstName} #{profileView.lastName}
+                                    </h1>
+                                </div>
+                                <h6 class="text-success">#{profileView.title}</h6>
+
+                                <p>#{profileView.description}</p>
+                                <div class="flex">
+                                    <i class="pi pi-calendar-minus icon_profile"></i>
+                                    <h5>
+                                        <h:outputText value="#{profileView.birthday}">
+                                            <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
+                                        </h:outputText>
+                                    </h5>
+                                </div>
+
+                                <div class="flex">
+                                    <i class="pi pi-phone icon_profile"></i>
+                                    <h5>#{profileView.phoneNumber}</h5>
+                                </div>
+
+                                <div class="flex">
+                                    <i class="pi pi-envelope icon_profile"></i>
+                                    <h5>#{profileView.email}</h5>
+                                </div>
+
+                                <div class="flex">
+                                    <i class="pi pi-globe icon_profile"></i>
+                                    <h5>#{profileView.address1} #{profileView.address2}</h5>
+                                </div>
+
+                                <p:rating readonly="true" value="3" />
+                                <p:separator />
+
+
+                            </div>
+                        </div>
+                        <div class="col-12 xl:col-5 profile_edit card">
+                            <h5>Advanced</h5> 
+
+                                <form method="POST" action="./UpdateProfileServlet" style="width:100%" class="ui-fluid form grid grid">
+                                    <div class="field col-12 md:col-6">
+                                        <label for="firstname">First name</label>
+                                        <input text="text" id="firstname" name="firstname" autocomplete="firstName"
+                                            value="#{profileView.firstName}"
+                                            class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all ui-state-filled" />
+                                    </div> 
+                                    <div class="field col-12 md:col-6">
+                                        <label for="lastname">Last name</label>
+                                        <input type="text" id="lastname" name="lastname" autocomplete="lastName"
+                                        value="#{profileView.lastName}"
+                                        class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all ui-state-filled" />
+                                    </div> 
+                                    <div class="field col-12">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" autocomplete="email" value="#{profileView.email}"
+                                            class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all ui-state-filled" />
+                                    </div> 
+                                    <div class="field col-12">
+                                        <label for="date_birth">Date of Birth</label>
+                                        <input id="date_birth" name="date_birth" autocomplete="date_birth"
+                                            mask="99/99/9999" value="#{profileView.birthday}"
+                                            class="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all ui-state-filled" />
+                                    </div>
+                                    <div class="field col-12">
+                                        <label for="country">Country</label>
+                                    </div>
+                                    <div class="field col-12">
+                                        <select name="country" id="country" class="p-2 ui-selectonemenu ui-widget ui-state-default ui-corner-all">
+                                            <option value="#{profileView.country}">#{profileView.country}</option>
+                                            <option value="UK">UK</option>
+                                            <option value="US">US</option>
+                                            <option value="CA">CA</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="field col-12">
+                                        <label for="phoneNumber">Phone Number</label>
+                                        <input type="tel" id="phoneNumber" name="phoneNumber" autocomplete="phoneNumber"
+                                            value="#{profileView.phoneNumber}"
+                                            class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all ui-state-filled" />
+                                    </div>
+
+                                    <div class="field col-12">
+                                        <label for="address1">Address Line 1</label>
+                                        <input type="text" id="address1" name="address1" autocomplete="address1"
+                                            value="#{profileView.address1}"
+                                            class="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all ui-state-filled" />
+                                    </div>
+                                    <div class="field col-12">
+                                        <label for="address2">Address Line 2</label>
+                                        <input type="text" id="address2" name="address2" autocomplete="address2"
+                                            value="#{profileView.address2}"
+                                            class="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all ui-state-filled" />
+                                    </div>
+                                    <div class="field col-12 md:col-4">
+                                        <label for="state">State</label>
+                                        <input type="text" id="state" name="state" autocomplete="state"
+                                        value="#{profileView.state}"
+                                        class="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all ui-state-filled" />
+                                    </div>
+                                    <div class="field col-12 md:col-4">
+                                        <label for="city">City</label>
+                                        <input type="text" id="city" name="city" autocomplete="city"
+                                            value="#{profileView.city}"
+                                            class="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all ui-state-filled" />
+                                    </div> 
+                                    <div class="field col-12 md:col-4">
+                                        <label for="zip"> Postal / Zip Code</label>
+                                        <input type="text" id="zip" name="zip" autocomplete="zip"
+                                            value="#{profileView.zipcode}"
+                                            class="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all ui-state-filled" />
+                                    </div>
+                                    <script
+                                        src="https://www.google.com/recaptcha/enterprise.js?render=6LdNy4kkAAAAAMR_fnrX36iDsWGvqvPVsq9Azgn2"></script>
+                                    <script>
+                                        grecaptcha.enterprise.ready(function () {
+                                            grecaptcha.enterprise.execute('6LdNy4kkAAAAAMR_fnrX36iDsWGvqvPVsq9Azgn2', { action: './UpdateProfileServlet' }).then(function (token) {
+
+                                            });
+                                        });
+                                    </script>
+                                    <div class="field col-12 flex ">
+                                        <input icon="pi pi-check" type="submit"
+                                            class="m-2 ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only p-f-1"
+                                            id="submit-button" value="Update" />
+                                        <input class="m-2 ui-widget ui-state-default ui-corner-all ui-button-text-only p-f-1 ui-button-danger Change_cancel"
+                                            icon="pi pi-times" type="button" value="Cancel" />
+                                    </div>
+
+                                </form>
+                        </div>
+                    </div>
+                </p:tab>
+                <p:tab title="Settings">
+                    <div class="grid">
+                        <div class="col-12 flex align-items-center justify-content-center">
+                            <div class="ui-fluid">
+                                <form method="POST" action="./ChangePasswordServlet?">
+                                    <div>
+                                        <label for="new_password">New Password</label>
+                                    </div>
+                                    <div class="field">
+                                        <input id="new_password"
+                                            class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
+                                            name="new_password" type="password" placeholder="New Password" />
+                                    </div>
+                                    <div>
+                                        <label for="confirm_password">Confirm Password</label>
+                                    </div>
+                                    <div class="field">
+                                        <input id="confirm_password"
+                                            class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
+                                            name="confirm_password" type="password" placeholder="Confirm Password" />
+
+                                    </div>
+                                    <script
+                                        src="https://www.google.com/recaptcha/enterprise.js?render=6LdNy4kkAAAAAMR_fnrX36iDsWGvqvPVsq9Azgn2"></script>
+                                    <script>
+                                        grecaptcha.enterprise.ready(function () {
+                                            grecaptcha.enterprise.execute('6LdNy4kkAAAAAMR_fnrX36iDsWGvqvPVsq9Azgn2', { action: './ChangePasswordServlet' }).then(function (token) {
+                                            });
+                                        });
+                                    </script>
+
+                                    <input type="checkbox" checked="true" /><label>By continuation you agree that you
+                                        have read and agree fully to the following &nbsp;</label>
+                                    <h:link outcome="/terms">terms of service</h:link>
+
+                                    <input type="submit"
+                                        class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only p-2 mt-3"
+                                        id="submit-button" value="Save change" />
+                                </form>
+                                <p:separator />
+                            </div>
+                        </div>
+                    </div>
+                </p:tab>
+            </p:tabView>
+
+        </div>
+
+    </ui:define>
+
+</ui:composition>

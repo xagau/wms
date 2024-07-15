@@ -1,0 +1,96 @@
+<div class="col-12 ">
+<div class="card">
+                            <p:growl id="messages" showDetail="true" />
+
+                            <p:toolbar styleClass="mb-4">
+                                <p:toolbarGroup>
+                                    <p:commandButton value="New" icon="pi pi-plus" actionListener="#{dashboardView.openNew}" update=":form:manage-project-content" oncomplete="PF('manageProjectDialog').show()"
+                                                     styleClass="ui-button-success" style="margin-right: .5rem" />
+                                    <p:commandButton id="delete-projects-button" value="#{dashboardView.deleteButtonMessage}" icon="pi pi-trash" actionListener="#{dashboardView.deleteSelectedProjects()}"
+                                                     styleClass="ui-button-danger" disabled="#{!dashboardView.hasSelectedProjects()}" update="@this">
+                                        <p:confirm header="Confirmation" message="Delete the selected projects?" icon="pi pi-exclamation-triangle" />
+                                    </p:commandButton>
+                                </p:toolbarGroup>
+                            </p:toolbar>
+
+                            <p:dataTable id="dt-projects" widgetVar="dtProjects" var="project" value="#{dashboardView.projects}" reflow="true" styleClass="products-table"
+                                         selection="#{dashboardView.selectedProjects}" rowKey="#{dashboardView.projects.get(0)}" paginator="true" rows="5" rowSelectMode="add" paginatorPosition="bottom">
+                                <f:facet name="header">
+                                    <div class="project-table-header justify-content-between">
+                                        <span style="font-weight: bold">Projects</span>
+
+                                    </div>
+                                </f:facet>
+
+                                <p:ajax event="rowSelect" update=":form:delete-projects-button" />
+                                <p:ajax event="rowUnselect" update=":form:delete-projects-button" />
+                                <p:ajax event="rowSelectCheckbox" update=":form:delete-projects-button" />
+                                <p:ajax event="rowUnselectCheckbox" update=":form:delete-projects-button" />
+                                <p:ajax event="toggleSelect" update=":form:delete-projects-button" />
+
+                                <p:column selectionMode="multiple" exportable="false"></p:column>
+
+                                <p:column headerText="Name" sortBy="#{project.name}"  >
+                                    <h:outputText value="#{project.name}" />
+                                </p:column>
+                                <p:column headerText="Creation Date" sortBy="#{project.creationDate}"  >
+                                    <h:outputText value="#{project.creationDate}" >
+                                        <f:convertDateTime  type="date" pattern="yyyy-MM-dd" />
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Total Size" sortBy="#{project.size}"  >
+                                    <h:outputText value="#{project.size}">
+                                        <f:convertNumber  pattern="###,###.###GB" />
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Description" sortBy="#{project.description}">
+                                    <span class="product-badge }">#{project.description}</span>
+                                </p:column>
+
+                            </p:dataTable>
+
+
+                            <p:dialog header="Project Details" showEffect="fade" modal="true" widgetVar="manageProjectDialog" responsive="true">
+                                <p:outputPanel id="manage-project-content" class="ui-fluid">
+
+                                    <p:outputPanel rendered="#{not empty dashboardView.selectedProject}" >
+                                        <div class="field">
+                                            <p:outputLabel for="selectname">Name</p:outputLabel>
+                                            <p:inputText id="selectname" value="#{dashboardView.selectedProject.name}" required="true"  />
+                                        </div>
+
+                                        <div class="formgrid grid">
+                                            <div class="field col">
+                                                <p:outputLabel for="selectsize">Space (SSD)</p:outputLabel>
+                                                <p:inputNumber id="selectsize" value="#{dashboardView.selectedProject.size}" symbol="MB" symbolPosition="s" />
+                                            </div>
+                                        </div>
+
+                                        <div class="field">
+                                            <p:outputLabel for="selectdescription">Description</p:outputLabel>
+                                            <p:inputTextarea id="selectdescription" value="#{dashboardView.selectedProject.description}" />
+                                        </div>
+
+                                    </p:outputPanel>
+                                </p:outputPanel>
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Save" icon="pi pi-check" actionListener="#{dashboardView.saveProject()}"  process="manage-project-content @this" />
+                                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProjectDialog').hide()" class="ui-button-secondary" />
+                                </f:facet>
+                            </p:dialog>
+
+
+                            <p:confirmDialog widgetVar="deleteProjectDialog" showEffect="fade" width="300" message="Delete the project?" header="Confirm" severity="warn">
+                                <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{dashboardView.deleteProject()}" process="@this" oncomplete="PF('deleteProjectDialog').hide()"/>
+                                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('deleteProjectDialog').hide()" />
+                            </p:confirmDialog>
+
+                            <p:confirmDialog global="true" showEffect="fade" width="300">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary" icon="pi pi-times" />
+                            </p:confirmDialog>
+                        </div>
+                    </div>

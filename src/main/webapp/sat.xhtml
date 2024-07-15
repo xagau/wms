@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+             
+    <ui:define name="title">Satallite Imagery Page</ui:define>
+
+    <ui:param name="viewname" value="SATALLITE IMAGERY PAGE" />
+    
+    <ui:define name="content">
+        <div class="grid">
+            <div class="col">
+                <div class="card">
+                    <h4>Satallite Imagery Page</h4>
+                    #{guestPreferences.inputStyleClass}
+                    <p>This is your Satallite Imagery Page.</p>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

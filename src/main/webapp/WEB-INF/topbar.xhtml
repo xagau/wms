@@ -1,0 +1,143 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <div class="layout-topbar">
+        <div class="topbar-left">
+            <a tabindex="0" class="menu-button">
+                <i class="pi pi-chevron-left"></i>
+            </a>
+            <span class="topbar-separator"></span>
+            <span class="viewname">#{viewname}</span>
+            <a href="/index.html">
+                <p:graphicImage id="logo-mobile" styleClass="mobile-logo" library="diamond-layout"
+                name="images/#{guestPreferences.scheme eq 'light' ? 'logo-dark.png' : 'logo-white.png'}"/>
+            </a>
+        </div>
+
+        <div class="topbar-right">
+            <ul class="topbar-menu">
+                <!-- TODO: Remove for MVP
+                <li class="search-item">
+                    <a tabindex="0">
+                        <i class="pi pi-search"></i>
+                    </a>
+                </li>
+                -->
+                <li class="notifications-item">
+                    <a tabindex="0">
+                        <i class="pi pi-bell"></i>
+                        <span class="topbar-badge">1</span>
+                    </a>
+                    <ul class="notifications-menu">
+                        <p:dataTable id="notification_history" value="#{dashboardView.notifications}" reflow="true" paginatorPosition="bottom"
+                                         rowKey="#{dashboardView.notifications.size() }" paginator="true" rows="5" >
+                        <li>
+                            <a tabindex="0">
+                                <i class="pi pi-check-square"></i>
+                                <div class="notification-item">
+                                    <div class="notification-summary">Notifications Disabled</div>
+                                    <div class="notification-detail">Notifications will appear here.</div>
+                                </div>
+                            </a>
+                        </li>
+
+                        </p:dataTable>
+                        <!-- TODO: Remove for MVP
+                        <li>
+                            <a tabindex="0">
+                                <i class="pi pi-shopping-cart"></i>
+                                <div class="notification-item">
+                                    <div class="notification-summary">New Order</div>
+                                    <div class="notification-detail">You have <strong>3</strong> new orders.</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a tabindex="0">
+                                <i class="pi pi-check-square"></i>
+                                <div class="notification-item">
+                                    <div class="notification-summary">Withdrawn Completed</div>
+                                    <div class="notification-detail">Funds are on their way.</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a tabindex="0">
+                                <i class="pi pi-chart-line"></i>
+                                <div class="notification-item">
+                                    <div class="notification-summary">Monthly Reports</div>
+                                    <div class="notification-detail">New reports are ready.</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a tabindex="0">
+                                <i class="pi pi-comments"></i>
+                                <div class="notification-item">
+                                    <div class="notification-summary">Comments</div>
+                                    <div class="notification-detail"><strong>2</strong> new comments.</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a tabindex="0">
+                                <i class="pi pi-exclamation-circle"></i>
+                                <div class="notification-item">
+                                    <div class="notification-summary">Chargeback Request</div>
+                                    <div class="notification-detail"><strong>1</strong> to review.</div>
+                                </div>
+                            </a>
+                        </li> -->
+                    </ul> 
+                </li>
+                <li class="profile-item">
+                    <a tabindex="0">
+                        <span class="profile-name">#{profileView.firstName} #{profileView.lastName}</span>
+                    </a>
+                    <ul class="profile-menu">
+                        <li>
+                            <h:link outcome="/profile">
+                                <i class="pi pi-user"></i>
+                                <span>Profile</span>
+                            </h:link>
+                        </li>
+                        <li>
+                            <h:link outcome="/settings">
+                                <i class="pi pi-cog"></i>
+                                <span>Settings</span>
+                            </h:link>
+                        </li>
+                        <li>
+                            <h:link outcome="/calendar">
+                                <i class="pi pi-calendar"></i>
+                                <span>Calendar</span>
+                            </h:link>
+                        </li>
+                        <!-- TODO: Remove for MVP
+                        <li>
+                            <a tabindex="0">
+                                <i class="pi pi-inbox"></i>
+                                <span>Inbox</span>
+                            </a>
+                        </li>
+                        -->
+                        <li class="menuitem-separator"></li>
+                        <li>
+                            <h:link outcome="/logout">
+                                <i class="pi pi-power-off"></i>
+                                <span>Logout</span>
+                            </h:link>
+                        </li>
+                    </ul>
+                </li>
+                <li class="right-sidebar-item">
+                    <a tabindex="0">
+                        <i class="pi pi-align-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</ui:composition>
